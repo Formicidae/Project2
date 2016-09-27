@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-    int sudoku[9][9];
+    int sudoku[81];
     ifstream puzzles("puzzles.txt");
     ofstream solutions("solutions.txt");
     bool looping;
@@ -14,20 +14,29 @@ int main()
     string line;
     char chars[1];
     char ch;
+    int iline;
     while(looping)
     {
         getline(puzzles,puzzleNumber);
         //cout << line;
         for(int i = 0; i < 9;i++)
         {
-            getline(puzzles,line);
+            //getline(puzzles,line);
             //cout << line;
+            int* ptr;
+            ptr = &sudoku;
+            iline << puzzles;
             for(int j = 0; j < 9;j++)
             {
-                chars = line.substr(j).c_str();
-                ch = chars[0];
+                //puzzles >> iline;
+                //sudoku[i][j] = iline /
+                cout << iline << endl;
+                //chars = line.substr(j).c_str();
+                //ch = chars[0];
                 //cout << ch << endl;
-                sudoku[i][j] = ch;
+                //sudoku[i][j] = ch;
+                *(ptr + (i*9) + j) = iline / (100000000 / (10*j));
+                iline %= (100000000 / (10*j));
             }
 
         }
