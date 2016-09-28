@@ -2,26 +2,64 @@
 #include <fstream>
 #include <string>
 #include <math.h>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
 string checkRows(int *sudokuPtr)
 {
     int count;
-    for(int search = 1;search < 10;search++)
+    for(int i = 0;i < 9;i++)
     {
-        for(int i = 0;i < 9;i++)
+        for(int searchN = 1;searchN < 10;searchN++)
         {
             for(int j = 0;j < 9;j++)
             {
-                if(*(sudokuPtr + (i*9) + j) == search){
+                if(*(sudokuPtr + (i*9) + j) == searchN){
                     count++;
                 }
             }
             if(count > 1)
             {
-                return "Multiple " + search + " in row " + i;
+                ostringstream  oss;
+                oss << searchN;
+                string one = oss.str();
+                ostringstream  oss1;
+                oss1 << i;
+                string two = oss1.str();
+               return "Multiple " + one + " in row " + two;
             }
+            count = 0;
+        }
+    }
+    return "";
+}
+
+string checkColumns(int *sudokuPtr)
+{
+    int count;
+    for(int i = 0;i < 9;i++)
+    {
+        for(int searchN = 1;searchN < 10;searchN++)
+        {
+            for(int j = 0;j < 9;j++)
+            {
+                if(*(sudokuPtr + (j*9) + i) == searchN){
+                    count++;
+                }
+            }
+            if(count > 1)
+            {
+                ostringstream  oss;
+                oss << searchN;
+                string one = oss.str();
+                ostringstream  oss1;
+                oss1 << i;
+                string two = oss1.str();
+               return "Multiple " + one + " in row " + two;
+            }
+            count = 0;
         }
     }
     return "";
@@ -50,23 +88,15 @@ int main()
             int* ptr;
             ptr = sudoku;
             puzzles >> iline;
-            for(int j = 0; j < 9;j++)
+            for(int j = 8; j > -1;j--)
             {
-                //puzzles >> iline;
-                //sudoku[i][j] = iline /
-                cout << "line: " << iline << endl;
-                //chars = line.substr(j).c_str();
-                //ch = chars[0];
-                //cout << ch << endl;
-                //sudoku[i][j] = ch;
-                cout << iline / (100000000 / (int)pow(10,j)) << endl;
-                *(ptr + (i*9) + (j)) = iline / (100000000 / (int)pow(10,j));
-                //cout << *(ptr) << endl;
-                iline %= (100000000 / (int)pow(10,j));
-                cout << sudoku[j] << endl;
+                //cout << "line: " << iline << endl;
+                *(ptr + (i*9) + (j)) = iline % 10;
+                iline /= 10;
             }
 
         }
+        /*
         cout << "Line: " << endl;
         cout << sudoku[0] << endl;
         cout << sudoku[1] << endl;
@@ -77,6 +107,7 @@ int main()
         cout << sudoku[6] << endl;
         cout << sudoku[7] << endl;
         cout << sudoku[8] << endl;
+        */
 
         for(int i =0;i<9;i++)
         {
@@ -86,6 +117,34 @@ int main()
             }
             cout << endl;
         }
+
+
+        solutions << puzzleNumber << endl;
+        string rows = checkRows(sudoku);
+        if( rows != "")
+        {
+            solutions << puzzleNumber << "    Invalid    " << rows;
+        }
+        else{
+            string columns = checkColumns(sudoku);
+            if(columns != ""){
+                solutions << puzzleNumber << "    Invalid    " << columns;
+            }
+            else{
+                string squares = "";
+
+                if(squares != "")
+                {
+                    solutions << puzzleNumber << "    Invalid    " << squares;
+                }
+                else{
+                    solutions << puzzleNumber << "    Valid";
+                }
+            }
+        }
+
+
+
         looping = false;
 
     }

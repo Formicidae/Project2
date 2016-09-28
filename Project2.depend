@@ -4,8 +4,11 @@
 	<fstream>
 	<string>
 
-1475031487 source:c:\users\eddie\documents\c++\project2\main.cpp
+1475088872 source:c:\users\eddie\documents\c++\project2\main.cpp
 	<iostream>
 	<fstream>
 	<string>
+	<math.h>
+	<string>
+	<sstream>
 
