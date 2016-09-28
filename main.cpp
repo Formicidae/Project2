@@ -5,6 +5,29 @@
 
 using namespace std;
 
+string checkRows(int *sudokuPtr)
+{
+    int count;
+    for(int search = 1;search < 10;search++)
+    {
+        for(int i = 0;i < 9;i++)
+        {
+            for(int j = 0;j < 9;j++)
+            {
+                if(*(sudokuPtr + (i*9) + j) == search){
+                    count++;
+                }
+            }
+            if(count > 1)
+            {
+                return "Multiple " + search + " in row " + i;
+            }
+        }
+    }
+    return "";
+}
+
+
 int main()
 {
     int sudoku[81];
