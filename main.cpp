@@ -9,7 +9,7 @@ using namespace std;
 
 string checkRows(int *sudokuPtr)
 {
-    int count;
+    int count = 0;
     for(int i = 0;i < 9;i++)
     {
         for(int searchN = 1;searchN < 10;searchN++)
@@ -22,6 +22,7 @@ string checkRows(int *sudokuPtr)
             }
             if(count > 1)
             {
+                cout << endl << "count: " << count << endl;
                 ostringstream  oss;
                 oss << searchN;
                 string one = oss.str();
@@ -38,7 +39,7 @@ string checkRows(int *sudokuPtr)
 
 string checkColumns(int *sudokuPtr)
 {
-    int count;
+    int count = 0;
     for(int i = 0;i < 9;i++)
     {
         for(int searchN = 1;searchN < 10;searchN++)
@@ -57,7 +58,7 @@ string checkColumns(int *sudokuPtr)
                 ostringstream  oss1;
                 oss1 << i;
                 string two = oss1.str();
-               return "Multiple " + one + " in row " + two;
+               return "Multiple " + one + " in column " + two;
             }
             count = 0;
         }
@@ -74,12 +75,17 @@ int main()
     bool looping;
     string puzzleNumber;
     string line;
-    char chars[1];
-    char ch;
     int iline;
+    looping = true;
     while(looping)
     {
         getline(puzzles,puzzleNumber);
+        if(!puzzles.good())
+        {
+            looping = false;
+            cout << "Breaking";
+            break;
+        }
         //cout << line;
         for(int i = 0; i < 9;i++)
         {
@@ -96,18 +102,6 @@ int main()
             }
 
         }
-        /*
-        cout << "Line: " << endl;
-        cout << sudoku[0] << endl;
-        cout << sudoku[1] << endl;
-        cout << sudoku[2] << endl;
-        cout << sudoku[3] << endl;
-        cout << sudoku[4] << endl;
-        cout << sudoku[5] << endl;
-        cout << sudoku[6] << endl;
-        cout << sudoku[7] << endl;
-        cout << sudoku[8] << endl;
-        */
 
         for(int i =0;i<9;i++)
         {
@@ -123,30 +117,27 @@ int main()
         string rows = checkRows(sudoku);
         if( rows != "")
         {
-            solutions << puzzleNumber << "    Invalid    " << rows;
+            solutions << puzzleNumber << "    Invalid    " << rows << endl;
         }
         else{
             string columns = checkColumns(sudoku);
             if(columns != ""){
-                solutions << puzzleNumber << "    Invalid    " << columns;
+                solutions << puzzleNumber << "    Invalid    " << columns << endl;
             }
             else{
                 string squares = "";
 
                 if(squares != "")
                 {
-                    solutions << puzzleNumber << "    Invalid    " << squares;
+                    solutions << puzzleNumber << "    Invalid    " << squares << endl;
                 }
                 else{
-                    solutions << puzzleNumber << "    Valid";
+                    solutions << puzzleNumber << "    Valid" << endl;
                 }
             }
         }
-
-
-
-        looping = false;
-
+        getline(puzzles,puzzleNumber);
+        cout << endl << "line: " << puzzles << endl;
     }
 
 
