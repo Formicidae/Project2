@@ -1,8 +1,11 @@
 # depslib dependency file v1.0
-1474996554 source:d:\c and c++ programs\project2\main.cpp
+1475344545 source:d:\c and c++ programs\project2\main.cpp
 	<iostream>
 	<fstream>
 	<string>
+	<math.h>
+	<string>
+	<sstream>
 
 1475175957 source:c:\users\eddie\documents\c++\project2\main.cpp
 	<iostream>

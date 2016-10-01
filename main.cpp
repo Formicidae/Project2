@@ -66,6 +66,47 @@ string checkColumns(int *sudokuPtr)
     return "";
 }
 
+string squarePrint(int r, int c)
+{
+    string output = "";
+    switch(r){
+        case 0: output += "Upper"; break;
+        case 3: output += "Middle"; break;
+        case 6: output += "Lower"; break;
+    }
+    switch(c){
+        case 0: output += " Left"; break;
+        case 3: output += " Middle"; break;
+        case 6: output += " Right"; break;
+    }
+    return output;
+}
+
+string checkSquares(int *sudokuPtr)
+{
+    for(int rowStart = 0;rowStart < 7;rowStart += 3){
+        for(int colStart = 0;colStart < 7;colStart += 3){
+            int count = 0;
+            for(int num = 1;num < 10;num++){
+                for(int r = rowStart; r < rowStart + 3;r++){
+                    for(int c = colStart;c < colStart + 3;c++){
+                        if(*(sudokuPtr + (r*9) + c) == num){
+                            count++;
+                        }
+                    }
+                }
+                if(count > 1){
+                    ostringstream oss;
+                    oss << num;
+                    string number = oss.str();
+                    return "multiple " + number + "s in " + squarePrint(rowStart,colStart);
+                }
+                count = 0;
+            }
+        }
+    }
+    return "";
+}
 
 int main()
 {
@@ -79,7 +120,9 @@ int main()
     looping = true;
     while(looping)
     {
-        getline(puzzles,puzzleNumber);
+        //getline(puzzles,puzzleNumber);
+        puzzles >> puzzleNumber;
+
         if(!puzzles.good())
         {
             looping = false;
@@ -111,9 +154,10 @@ int main()
             }
             cout << endl;
         }
+        cout << endl;
 
 
-        solutions << puzzleNumber << endl;
+        //solutions << puzzleNumber << endl;
         string rows = checkRows(sudoku);
         if( rows != "")
         {
@@ -125,7 +169,7 @@ int main()
                 solutions << puzzleNumber << "    Invalid    " << columns << endl;
             }
             else{
-                string squares = "";
+                string squares = checkSquares(sudoku);
 
                 if(squares != "")
                 {
@@ -136,8 +180,8 @@ int main()
                 }
             }
         }
-        getline(puzzles,puzzleNumber);
-        cout << endl << "line: " << puzzles << endl;
+        //getline(puzzles,puzzleNumber);
+        //cout << endl << "line: " << puzzles << endl;
     }
 
 
