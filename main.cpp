@@ -133,7 +133,7 @@ string checkSquares(int *sudokuPtr)
 
 int main()
 {
-    int sudoku[81];
+    int* ptr = new int [81];
     ifstream puzzles("puzzles.txt");
     ofstream solutions("solutions.txt");
     bool looping;
@@ -158,8 +158,6 @@ int main()
         //Read sudoku in line by line, and then reads the line backwards with mod 10
         for(int i = 0; i < 9;i++)
         {
-            int* ptr;
-            ptr = sudoku;
             puzzles >> iline;
             for(int j = 8; j > -1;j--)
             {
@@ -170,20 +168,20 @@ int main()
         }
 
         //initiates the check of rows, if non-empty string is returned it is writtten to file and programs moves on
-        string rows = checkRows(sudoku);
+        string rows = checkRows(ptr);
         if( rows != "")
         {
             solutions << puzzleNumber << "    Invalid    " << rows << endl;
         }
         else{
             //If rows are valid it checks columns
-            string columns = checkColumns(sudoku);
+            string columns = checkColumns(ptr);
             if(columns != ""){
                 solutions << puzzleNumber << "    Invalid    " << columns << endl;
             }
             else{
                 //If columns are good it checks squares
-                string squares = checkSquares(sudoku);
+                string squares = checkSquares(ptr);
 
                 if(squares != "")
                 {
@@ -196,5 +194,6 @@ int main()
             }
         }
     }
+    delete [] ptr;
     return 0;
 }
