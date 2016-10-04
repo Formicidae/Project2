@@ -1,3 +1,5 @@
 31    Valid
-2    Invalid    Multiple 7 in row 4
+2    Invalid    Multiple 7 in row 5
 14    Invalid    multiple 1s in Upper Left
+22    Invalid    Multiple 1 in column 7
+4    Invalid    Multiple 4 in row 2

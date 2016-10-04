@@ -32,7 +32,7 @@ string checkRows(int *sudokuPtr)
                 oss << searchN;
                 string one = oss.str();
                 ostringstream  oss1;
-                oss1 << i;
+                oss1 << i + 1;
                 string two = oss1.str();
                return "Multiple " + one + " in row " + two;
             }
@@ -67,7 +67,7 @@ string checkColumns(int *sudokuPtr)
                 oss << searchN;
                 string one = oss.str();
                 ostringstream  oss1;
-                oss1 << i;
+                oss1 << i + 1;
                 string two = oss1.str();
                return "Multiple " + one + " in column " + two;
             }
